@@ -1,0 +1,6 @@
+#ifndef LANGUAGE_IMPROVEMENT_H
+#define LANGUAGE_IMPROVEMENT_H
+
+#include "Cycles.h"
+
+#endif // LANGUAGEIMPROVEMENT_H
