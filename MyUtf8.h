@@ -7,10 +7,12 @@ namespace my_utf8
 {
     void setConsoleToUtf8();
 
+    bool needChangingEndianness();
+
     std::wstring convertToWString(const char* bytes,
-                                  bool needChangeEndianness = true);
+                                  bool needChangingEndianness = true);
     std::wstring convertToWString(const std::string& bytes,
-                                  bool needChangeEndianness = true);
+                                  bool needChangingEndianness = true);
 
     std::string convertToBytes(std::wstring string,
                                bool needChangeEndianness = false);

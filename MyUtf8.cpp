@@ -14,6 +14,18 @@ void my_utf8::setConsoleToUtf8()
     _setmode(_fileno(stderr), _O_U8TEXT);
 }
 
+bool my_utf8::needChangingEndianness()
+{
+    uint16_t number1 = 0xABCD;
+
+    uint8_t* number2Arr[2];
+    number2Arr[0] = 0xAB;
+    number2Arr[1] = 0XCD;
+    uint16_t number2 = *reinterpret_cast<uint16_t>(number2Arr);
+
+    return number1 != number2;
+}
+
 void changeEndianness(std::wstring& string)
 {
     for (wchar_t& c : string)
@@ -24,24 +36,24 @@ void changeEndianness(std::wstring& string)
 }
 
 std::wstring my_utf8::convertToWString(const char* bytes,
-                                       bool needChangeEndianness)
+                                       bool needChangingEndianness)
 {
     std::wstring_convert<std::codecvt_utf8<wchar_t>> convert;
     std::wstring wstr = convert.from_bytes(bytes);
 
-    if (needChangeEndianness)
+    if (needChangingEndianness)
         changeEndianness(wstr);
 
     return wstr;
 }
 
 std::wstring my_utf8::convertToWString(const std::string& bytes,
-                                       bool needChangeEndianness)
+                                       bool needChangingEndianness)
 {
     std::wstring_convert<std::codecvt_utf8<wchar_t>> convert;
     std::wstring wstr = convert.from_bytes(bytes);
 
-    if (needChangeEndianness)
+    if (needChangingEndianness)
         changeEndianness(wstr);
 
     return wstr;
