@@ -7,14 +7,11 @@
 #include <map>
 #include <string>
 
-template <typename T> struct unconst          { using type = T; };
-template <typename T> struct unconst<const T> { using type = T; };
-
 using State = const std::string;
 #define STATE(stateName) \
     State stateName##State{#stateName};
 
-using StateList = std::list<unconst<State>::type>;
+using StateList = std::list<std::remove_const<State>::type>;
 static const StateList EMPTY_COMPLEX_STATE{};
 
 using StateFunction = std::function<void()>;
@@ -66,8 +63,8 @@ public:
 private:
     ComplexState _complexState;
     std::map<State, StateFunction> _stateFunctions;
-    std::map<State, std::list<unconst<State>::type>> _stateRequirements;
-    std::map<State, std::list<unconst<State>::type>> _stateIncompatibilities;
+    std::map<State, std::list<std::remove_const<State>::type>> _stateRequirements;
+    std::map<State, std::list<std::remove_const<State>::type>> _stateIncompatibilities;
 };
 
 #endif // COMPLEX_STATE_MACHINE_H
