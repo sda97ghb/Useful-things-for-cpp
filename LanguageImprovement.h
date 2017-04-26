@@ -27,4 +27,10 @@
 
 #include "Cycles.h"
 
+template <typename T1, typename T2>
+inline bool instanceof(T2* object)
+{
+    return dynamic_cast<T1*>(object) != nullptr;
+}
+
 #endif // LANGUAGEIMPROVEMENT_H
